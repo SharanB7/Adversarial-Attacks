@@ -1,0 +1,60 @@
+
+=====================================================================
+This module is intended solely for building or source activating user
+python environments, i.e.,
+
+    mamba create -n myenv -c conda-forge
+
+or
+
+    source activate myenv
+
+To list available environments, run:
+
+    mamba info --envs
+
+See our docs: https://links.asu.edu/solpy
+
+Any other use is NOT TESTED.
+=====================================================================
+
+  
+
+
+
+ ./experiments/data/siren_mnist_wts ./experiments/data/pytorch_dsets
+Loading MNIST
+Traceback (most recent call last):
+  File "/home/sbajjur3/.local/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 92, in _call_target
+    return _target_(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/sbajjur3/INR2ARRAY/experiments/inr2array.py", line 133, in __init__
+    *[BLOCK_TYPES[block_type](network_spec, n_chan, **block_kwargs) for _ in range(num_blocks)],
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/sbajjur3/INR2ARRAY/experiments/inr2array.py", line 133, in <listcomp>
+    *[BLOCK_TYPES[block_type](network_spec, n_chan, **block_kwargs) for _ in range(num_blocks)],
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Block.__init__() got an unexpected keyword argument 'vae'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/scratch/sbajjur3/INR2ARRAY/experiments/make_latent_dset.py", line 57, in <module>
+    main(parser.parse_args())
+  File "/scratch/sbajjur3/INR2ARRAY/experiments/make_latent_dset.py", line 23, in main
+    nfnet = hydra.utils.instantiate(cfg.model, spec, dset_data_type=dset.data_type, vae=False, compile=False).to("cuda")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sbajjur3/.local/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/sbajjur3/.local/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
+    return _call_target(_target_, partial, args, kwargs, full_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sbajjur3/.local/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
+    raise InstantiationException(msg) from e
+hydra.errors.InstantiationException: Error in call to target 'experiments.inr2array.AutoEncoder':
+TypeError("Block.__init__() got an unexpected keyword argument 'vae'")
+full_key: model
+/packages/apps/mamba/1.5.1/bin/python: No module named experiments.launch_classify_latent
